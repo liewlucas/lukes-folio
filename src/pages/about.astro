@@ -1,0 +1,104 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import PageHeader from "@components/ui/PageHeader.astro";
+import Label from "@components/ui/Label.astro";
+import { getSettings } from "@lib/content";
+
+const settings = await getSettings();
+
+const tools = ["Figma", "Astro", "TypeScript", "Storyblok", "Tailwind", "Blender"];
+const interests = [
+  "Editorial & type systems",
+  "Design engineering",
+  "Risograph & print",
+  "Slow software",
+];
+---
+
+<BaseLayout
+  title="About"
+  description="A little about Lucas Liew — brand & product designer and design engineer."
+>
+  <PageHeader eyebrow="About" title="A little <em>about me</em>" />
+
+  <section class="container-editorial about">
+    <div class="about__bio prose-editorial">
+      <p>
+        I'm Lucas — a brand and product designer who writes code. I like work
+        that feels made: warm, textured, a little hand-set, and built to last
+        longer than a trend cycle.
+      </p>
+      <p>
+        Most days I'm somewhere between art direction and design engineering —
+        drawing the system, then building it. This site is where the finished
+        spreads and the rough notes live side by side.
+      </p>
+    </div>
+
+    <div class="about__cols">
+      <div class="about__col">
+        <Label red>Currently into</Label>
+        <ul class="about__list">
+          {interests.map((i) => <li>{i}</li>)}
+        </ul>
+      </div>
+      <div class="about__col">
+        <Label red>Tools</Label>
+        <ul class="about__list">
+          {tools.map((t) => <li>{t}</li>)}
+        </ul>
+      </div>
+      <div class="about__col">
+        <Label red>Elsewhere</Label>
+        <ul class="about__list">
+          {
+            settings.social_links.map((s) => (
+              <li>
+                <a class="link-underline" href={s.url} target="_blank" rel="noopener noreferrer">
+                  {s.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="about__cta">
+      <a class="btn btn-solid" href="/contact">Get in touch</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about {
+    padding-bottom: 2rem;
+  }
+  .about__bio {
+    font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+    line-height: 1.5;
+  }
+  .about__cols {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-rule);
+  }
+  .about__list {
+    margin-top: 0.9rem;
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .about__cta {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+  }
+  @media (min-width: 720px) {
+    .about__cols {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

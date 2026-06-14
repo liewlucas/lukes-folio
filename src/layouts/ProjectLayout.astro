@@ -1,0 +1,220 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Cover from "@components/ui/Cover.astro";
+import Label from "@components/ui/Label.astro";
+import type { Post, Project } from "@lib/types";
+
+interface Props {
+  project: Project;
+  next?: Project;
+  relatedPosts?: Post[];
+}
+const { project, next, relatedPosts = [] } = Astro.props;
+const sections = [
+  { label: "Problem", html: project.problem_html },
+  { label: "Process", html: project.process_html },
+  { label: "Outcome", html: project.outcome_html },
+].filter((s) => s.html);
+---
+
+<BaseLayout
+  title={project.title}
+  description={project.summary}
+  image={project.cover_image?.src}
+  type="article"
+>
+  <article class="case">
+    <!-- Title spread -->
+    <header class="case__head container-editorial">
+      <span class="label label-red rise rise-1">{project.year} · {project.role}</span>
+      <h1 class="case__title display printed rise rise-2">{project.title}</h1>
+      <p class="case__subtitle rise rise-3">{project.subtitle}</p>
+
+      {
+        project.stack.length > 0 && (
+          <ul class="case__stack rise rise-4">
+            {project.stack.map((s) => (
+              <li class="label">{s}</li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+
+    <!-- Cover -->
+    <div class="case__cover container-editorial">
+      <Cover
+        image={project.cover_image}
+        title={project.title}
+        ratio="16 / 9"
+        width={1600}
+        eager
+      />
+    </div>
+
+    <!-- Body sections -->
+    <div class="case__body container-editorial">
+      <p class="case__summary">{project.summary}</p>
+
+      {
+        sections.map((s) => (
+          <section class="case__section">
+            <Label red as="h2">
+              {s.label}
+            </Label>
+            <div class="prose-editorial" set:html={s.html} />
+          </section>
+        ))
+      }
+
+      {
+        (project.external_url || project.github_url) && (
+          <div class="case__links">
+            {project.external_url && (
+              <a class="btn btn-solid" href={project.external_url} target="_blank" rel="noopener noreferrer">
+                Visit project
+              </a>
+            )}
+            {project.github_url && (
+              <a class="btn" href={project.github_url} target="_blank" rel="noopener noreferrer">
+                Source
+              </a>
+            )}
+          </div>
+        )
+      }
+    </div>
+
+    <!-- Gallery -->
+    {
+      project.gallery.length > 0 && (
+        <div class="case__gallery container-editorial">
+          {project.gallery.map((img) => (
+            <Cover image={img} title={project.title} ratio="4 / 3" />
+          ))}
+        </div>
+      )
+    }
+
+    <!-- Related notes -->
+    {
+      relatedPosts.length > 0 && (
+        <aside class="case__related container-editorial">
+          <Label red>Related notes</Label>
+          <ul class="case__related-list">
+            {relatedPosts.map((post) => (
+              <li>
+                <a class="link-underline" href={`/notes/${post.slug}`}>
+                  {post.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      )
+    }
+
+    <!-- Next project -->
+    {
+      next && (
+        <nav class="case__next container-editorial" aria-label="Next project">
+          <Label>Next project</Label>
+          <a class="case__next-title link-underline" href={`/work/${next.slug}`}>
+            {next.title}
+          </a>
+        </nav>
+      )
+    }
+  </article>
+</BaseLayout>
+
+<style>
+  .case__head {
+    padding-top: clamp(3rem, 8vw, 6rem);
+  }
+  .case__title {
+    margin-top: 0.6rem;
+  }
+  .case__subtitle {
+    margin-top: 1.2rem;
+    max-width: 40ch;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    line-height: 1.2;
+    color: var(--color-dark);
+  }
+  .case__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    margin-top: 1.5rem;
+    padding: 0;
+    list-style: none;
+  }
+  .case__cover {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+  }
+  .case__body {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+  }
+  .case__summary {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    line-height: 1.3;
+    color: var(--color-ink-red);
+    max-width: 30ch;
+    margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  }
+  .case__section {
+    padding: clamp(1.5rem, 4vw, 2.5rem) 0;
+    border-top: 1px solid var(--color-rule);
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  .case__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-rule);
+  }
+  .case__gallery {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+  }
+  .case__related,
+  .case__next {
+    margin-top: clamp(3rem, 7vw, 5rem);
+  }
+  .case__related-list {
+    margin-top: 1rem;
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+    font-size: 1.1rem;
+  }
+  .case__next-title {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--color-ink-red);
+  }
+
+  @media (min-width: 820px) {
+    .case__section {
+      grid-template-columns: 14rem 1fr;
+      gap: 2rem;
+    }
+    .case__gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

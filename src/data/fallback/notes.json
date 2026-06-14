@@ -1,0 +1,35 @@
+[
+  {
+    "title": "Fonts that feel like summer",
+    "slug": "fonts-that-feel-like-summer",
+    "date": "2025-06-02",
+    "category": "Type",
+    "excerpt": "Why a chunky editorial italic on linen reads as warm, slow, and a little nostalgic — and how to use that on purpose.",
+    "cover_image": null,
+    "body_html": "<p>There's a specific feeling a typeface can carry: sun-warmed, a bit hand-made, like it was stitched rather than set. It's rarely one decision. It's the italic, the ink that soaks slightly into the ground, the small caps doing the quiet labelling work underneath.</p><h2>One red is enough</h2><p>The fastest way to look expensive is to use less. A single deep oxblood, a warm linen, and one expressive display italic will carry an entire identity if you let the spacing breathe.</p><h2>Let the texture stay quiet</h2><p>Grain is seasoning, not the meal. Keep it under the body copy, never on it. The moment paragraphs get hard to read, the romance is gone.</p>",
+    "related_project": "gulabi-mango",
+    "featured": true
+  },
+  {
+    "title": "The details users never notice",
+    "slug": "details-users-never-notice",
+    "date": "2025-04-18",
+    "category": "Design Eng",
+    "excerpt": "Press states, ease-out curves, and entrances that don't start from nothing. The invisible craft that makes software feel right.",
+    "cover_image": null,
+    "body_html": "<p>Most polish is invisible by design. A button that scales to 0.97 on press. A dropdown that uses a real ease-out curve instead of the limp built-in one. A card that enters from scale(0.95), never scale(0), because nothing in the real world appears from nothing.</p><h2>Animate on purpose</h2><p>If a thing is seen a hundred times a day, it shouldn't animate at all. Save motion for the rare, the first-time, the genuinely delightful. Everything else should just feel instant.</p>",
+    "related_project": "marginalia",
+    "featured": true
+  },
+  {
+    "title": "Keeping a public dev log",
+    "slug": "keeping-a-public-dev-log",
+    "date": "2025-02-09",
+    "category": "Notes",
+    "excerpt": "Treating a portfolio like a living notebook instead of a frozen résumé — and why the rough edges are the point.",
+    "cover_image": null,
+    "body_html": "<p>This site is half archive, half notebook. The work pages are the polished spreads; this is where the thinking, the false starts, and the small wins go. Writing in public keeps me honest about what I actually learned versus what I'd like to claim I learned.</p>",
+    "related_project": null,
+    "featured": false
+  }
+]

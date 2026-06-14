@@ -1,0 +1,20 @@
+---
+import PostLayout from "@layouts/PostLayout.astro";
+import { getPosts, getProjects } from "@lib/content";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const projects = await getProjects();
+
+  return posts.map((post) => {
+    const related = post.related_project
+      ? projects.find((p) => p.slug === post.related_project)
+      : undefined;
+    return { params: { slug: post.slug }, props: { post, related } };
+  });
+}
+
+const { post, related } = Astro.props;
+---
+
+<PostLayout post={post} related={related} />

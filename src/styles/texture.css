@@ -1,0 +1,64 @@
+/*
+  Texture system — layered + subtle.
+  1) global linen weave   2) paper grain overlay   3) printed-ink display text
+  4) editorial rules (in globals.css). All generated, no binary assets.
+*/
+
+/* 1 + 2: fixed full-page grain. SVG turbulence kept low-opacity so body copy
+   stays crisp. Sits above the background, below content, ignores pointer. */
+.texture-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+
+/* Woven linen cross-hatch — extremely faint warm threads. */
+.texture-linen {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-rule) 22%, transparent) 0 1px,
+      transparent 1px 3px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--color-rule) 18%, transparent) 0 1px,
+      transparent 1px 3px
+    );
+  background-size: 3px 3px;
+}
+
+/* Ensure real content sits above texture overlays. */
+.above-texture {
+  position: relative;
+  z-index: 1;
+}
+
+/* 3: printed-ink effect — only on large display text. Subtle layered shadow
+   simulates ink slightly soaking into cloth. Never on body copy. */
+.printed {
+  text-shadow:
+    0 0.5px 0 color-mix(in srgb, var(--color-wine) 35%, transparent),
+    0 1px 1px color-mix(in srgb, var(--color-dark) 12%, transparent);
+}
+
+/* A "paper" surface for cards / raised blocks. */
+.surface-paper {
+  background-color: var(--color-paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.25'/%3E%3C/svg%3E");
+  background-blend-mode: multiply;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* texture is static already — nothing to do, kept for clarity */
+}

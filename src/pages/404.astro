@@ -1,0 +1,46 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Not found" description="That page has wandered off." noindex>
+  <section class="notfound container-editorial">
+    <span class="label label-red">Error 404</span>
+    <h1 class="notfound__display printed">
+      Off the <em>edge</em><br />of the page.
+    </h1>
+    <p class="notfound__intro">
+      That one isn't in the archive. Let's get you back to something printed.
+    </p>
+    <div class="notfound__actions">
+      <a class="btn btn-solid" href="/">Home</a>
+      <a class="btn" href="/work">See the work</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    padding-top: clamp(4rem, 12vw, 9rem);
+    padding-bottom: clamp(4rem, 10vw, 7rem);
+  }
+  .notfound__display {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--text-display);
+    line-height: 0.95;
+    color: var(--color-ink-red);
+    margin-top: 1rem;
+  }
+  .notfound__intro {
+    margin-top: 1.5rem;
+    max-width: 44ch;
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    color: var(--color-dark);
+  }
+  .notfound__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-top: 2rem;
+  }
+</style>

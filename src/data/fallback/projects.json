@@ -1,0 +1,53 @@
+[
+  {
+    "title": "Gulabi Mango",
+    "slug": "gulabi-mango",
+    "subtitle": "A summer fruit brand with embroidery and ink as its whole personality",
+    "year": "2025",
+    "role": "Brand identity, art direction, packaging",
+    "stack": ["Identity", "Packaging", "Type"],
+    "cover_image": null,
+    "summary": "A seasonal mango label that leans entirely into texture — stitched type, linen grounds, and a single deep red doing all the talking.",
+    "problem_html": "<p>Gulabi sold beautiful Alphonso and Chaunsa mangoes but looked like every other fruit importer: glossy stock photos, gradients, a logo that could belong to a fintech. They wanted to feel like a thing you'd keep, not a sticker you peel off.</p>",
+    "process_html": "<p>We threw out the photography and built the whole identity around one material idea: <em>fonts and marks that feel embroidered onto cloth</em>. A chunky editorial italic for the name, small tracked caps for the practical bits, and a palette pulled from a single ripe mango cut in half.</p><h3>The system</h3><p>One red. One linen. One italic. Everything else is restraint — generous margins, thin rules, and ink that looks like it soaked slightly into the weave.</p>",
+    "outcome_html": "<p>The relaunch sold through its first summer run in nine days, and three cafés asked to stock it on the strength of the label alone. The tote became the surprise hero — people bought the bag, then the mangoes.</p>",
+    "gallery": [],
+    "featured": true,
+    "external_url": "https://example.com/gulabi",
+    "github_url": null
+  },
+  {
+    "title": "Marginalia",
+    "slug": "marginalia",
+    "subtitle": "A reading app that treats your notes like a personal zine",
+    "year": "2024",
+    "role": "Product design, design engineering",
+    "stack": ["Product", "Design Eng", "Type"],
+    "cover_image": null,
+    "summary": "An e-reader companion that turns highlights and margin notes into a printable editorial archive you actually want to revisit.",
+    "problem_html": "<p>Highlighting is easy; coming back to highlights is where every reading app dies. Notes pile up in a list, lose their context, and never get read twice.</p>",
+    "process_html": "<p>I designed the export, not the capture. Marginalia composes your year of reading into a typeset booklet — pull quotes set large, margins kept honest, dates as small caps. The interaction work was deliberately quiet: soft underline reveals, presses that scale, nothing that animates more than once.</p>",
+    "outcome_html": "<p>The printable archive became the reason people stayed. Retention at 90 days roughly doubled against the previous list-based design in the beta cohort.</p>",
+    "gallery": [],
+    "featured": true,
+    "external_url": null,
+    "github_url": "https://github.com/"
+  },
+  {
+    "title": "Provincial Post",
+    "slug": "provincial-post",
+    "subtitle": "Editorial system for a slow-news regional paper",
+    "year": "2023",
+    "role": "Art direction, web",
+    "stack": ["Editorial", "Web", "Type"],
+    "cover_image": null,
+    "summary": "A type-led publishing system for a regional weekly that wanted to feel hand-set rather than templated.",
+    "problem_html": "<p>The paper's site looked like a 2012 CMS theme — and the writing deserved better than that.</p>",
+    "process_html": "<p>We built a small, opinionated set of editorial blocks: a pull quote, an image pair, a process note, a callout. Every article is assembled from the same parts, so it stays consistent without ever looking generated.</p>",
+    "outcome_html": "<p>Average read time on long features rose by about a third after launch, and the design system now ships every issue without a designer in the loop.</p>",
+    "gallery": [],
+    "featured": false,
+    "external_url": "https://example.com/provincial",
+    "github_url": null
+  }
+]

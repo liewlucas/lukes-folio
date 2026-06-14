@@ -1,0 +1,25 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+const { blok } = Astro.props;
+---
+
+<section class="container-editorial sb-hero" {...storyblokEditable(blok)}>
+  {blok.eyebrow && <span class="label label-red">{blok.eyebrow}</span>}
+  <h1 class="display printed" set:html={blok.title} />
+  {blok.subtitle && <p class="sb-hero__subtitle">{blok.subtitle}</p>}
+</section>
+
+<style>
+  .sb-hero {
+    padding-block: clamp(3rem, 9vw, 7rem);
+  }
+  .sb-hero .display {
+    margin-top: 1rem;
+  }
+  .sb-hero__subtitle {
+    margin-top: 1.5rem;
+    max-width: 46ch;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    color: var(--color-dark);
+  }
+</style>

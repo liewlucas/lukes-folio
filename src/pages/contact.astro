@@ -1,0 +1,89 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Label from "@components/ui/Label.astro";
+import { getSettings } from "@lib/content";
+
+const settings = await getSettings();
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with Lucas Liew — new work, collaborations, or a hello."
+>
+  <section class="contact container-editorial">
+    <span class="label label-red rise rise-1">Contact</span>
+    <h1 class="contact__display printed rise rise-2">
+      Say <em>hello</em>.
+    </h1>
+    <p class="contact__intro rise rise-3">
+      New work, collaborations, or just to talk type and print — the inbox is
+      open.
+    </p>
+
+    {
+      settings.email && (
+        <a class="contact__email link-underline rise rise-4" href={`mailto:${settings.email}`}>
+          {settings.email}
+        </a>
+      )
+    }
+
+    <div class="contact__social">
+      <Label red>Elsewhere</Label>
+      <ul class="contact__list">
+        {
+          settings.social_links.map((s) => (
+            <li>
+              <a class="link-underline" href={s.url} target="_blank" rel="noopener noreferrer">
+                {s.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact {
+    padding-top: clamp(3.5rem, 10vw, 8rem);
+    padding-bottom: 2rem;
+  }
+  .contact__display {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--text-display);
+    line-height: 0.95;
+    color: var(--color-ink-red);
+    margin-top: 1rem;
+  }
+  .contact__intro {
+    margin-top: 1.5rem;
+    max-width: 44ch;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    color: var(--color-dark);
+  }
+  .contact__email {
+    display: inline-block;
+    margin-top: 2rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    color: var(--color-ink-red);
+  }
+  .contact__social {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-rule);
+  }
+  .contact__list {
+    margin-top: 1rem;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+</style>

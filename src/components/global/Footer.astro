@@ -1,0 +1,90 @@
+---
+import type { SiteSettings } from "@lib/types";
+
+interface Props {
+  settings: SiteSettings;
+}
+const { settings } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer above-texture">
+  <div class="container-editorial footer-inner">
+    <div class="footer-lead">
+      <p class="footer-display">Let's make something printed.</p>
+      {
+        settings.email && (
+          <a class="link-underline footer-email" href={`mailto:${settings.email}`}>
+            {settings.email}
+          </a>
+        )
+      }
+    </div>
+
+    <nav class="footer-social" aria-label="Social links">
+      {
+        settings.social_links.map((s) => (
+          <a
+            class="link-underline"
+            href={s.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {s.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+
+  <div class="container-editorial footer-base">
+    <span class="label">© {year} {settings.site_title}</span>
+    {settings.footer_text && <span class="label">{settings.footer_text}</span>}
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: clamp(4rem, 10vw, 8rem);
+    border-top: 1px solid var(--color-rule);
+    padding-top: clamp(3rem, 6vw, 5rem);
+    padding-bottom: 2.5rem;
+  }
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .footer-display {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1;
+    color: var(--color-ink-red);
+  }
+  .footer-email {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 1.05rem;
+  }
+  .footer-social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .footer-base {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    justify-content: space-between;
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-rule);
+  }
+</style>

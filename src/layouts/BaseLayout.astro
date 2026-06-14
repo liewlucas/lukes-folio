@@ -1,0 +1,116 @@
+---
+import "@styles/globals.css";
+import Seo from "@components/global/Seo.astro";
+import Texture from "@components/global/Texture.astro";
+import Nav from "@components/global/Nav.astro";
+import Footer from "@components/global/Footer.astro";
+import { buildSeo } from "@lib/seo";
+import { getSettings } from "@lib/content";
+import type { ThemeVariant } from "@lib/types";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+  publishedTime?: string;
+  noindex?: boolean;
+  theme?: ThemeVariant;
+}
+
+const {
+  title,
+  description,
+  image,
+  type,
+  publishedTime,
+  noindex,
+  theme = "linen",
+} = Astro.props;
+
+const meta = buildSeo({
+  title,
+  description,
+  path: Astro.url.pathname,
+  image,
+  type,
+  publishedTime,
+  noindex,
+});
+
+const settings = await getSettings();
+---
+
+<!doctype html>
+<html lang="en" data-theme={theme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Lucas Liew — Notes"
+      href="/notes/rss.xml"
+    />
+
+    <!-- Fonts: DM Serif Display (display italic) + Inter (utility/body). OFL. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <Seo meta={meta} />
+  </head>
+  <body data-theme={theme}>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Texture />
+    <Nav settings={settings} />
+    <main id="main" class="above-texture">
+      <slot />
+    </main>
+    <Footer settings={settings} />
+
+    <style>
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        z-index: 100;
+        background: var(--color-ink-red);
+        color: var(--color-paper);
+        padding: 0.6rem 1rem;
+        font-family: var(--font-sans);
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+      }
+      .skip-link:focus {
+        left: 0.5rem;
+        top: 0.5rem;
+      }
+
+      /* Theme variants (page-level via theme_variant) */
+      body[data-theme="dark"] {
+        background-color: var(--color-dark);
+        color: var(--color-paper);
+      }
+      body[data-theme="dark"] :global(.label) {
+        color: color-mix(in srgb, var(--color-paper) 70%, transparent);
+      }
+      body[data-theme="red"] {
+        background-color: var(--color-ink-red);
+        color: var(--color-paper);
+      }
+      body[data-theme="red"] :global(h1),
+      body[data-theme="red"] :global(h2),
+      body[data-theme="red"] :global(.display),
+      body[data-theme="red"] :global(.title) {
+        color: var(--color-paper);
+      }
+    </style>
+  </body>
+</html>

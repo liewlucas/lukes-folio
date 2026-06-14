@@ -1,0 +1,19 @@
+{
+  "site_title": "Lucas Liew",
+  "intro_line": "Brand & product designer keeping a printed archive of the work, the notes, and the experiments in between.",
+  "navigation": [
+    { "label": "Work", "href": "/work" },
+    { "label": "Notes", "href": "/notes" },
+    { "label": "Lab", "href": "/lab" },
+    { "label": "About", "href": "/about" },
+    { "label": "Contact", "href": "/contact" }
+  ],
+  "social_links": [
+    { "label": "Instagram", "url": "https://instagram.com/" },
+    { "label": "Are.na", "url": "https://are.na/" },
+    { "label": "Read.cv", "url": "https://read.cv/" },
+    { "label": "GitHub", "url": "https://github.com/" }
+  ],
+  "footer_text": "Designed & built in the open. Set in DM Serif Display & Inter.",
+  "email": "hello@liewlucass.com"
+}

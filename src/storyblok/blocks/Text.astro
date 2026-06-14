@@ -1,0 +1,19 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+const { blok } = Astro.props;
+---
+
+<section class="container-editorial sb-text" {...storyblokEditable(blok)}>
+  {blok.heading && <h2 class="title">{blok.heading}</h2>}
+  {blok.text && <p class="sb-text__body prose-editorial">{blok.text}</p>}
+</section>
+
+<style>
+  .sb-text {
+    padding-block: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  .sb-text__body {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+  }
+</style>

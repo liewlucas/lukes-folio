@@ -1,0 +1,75 @@
+---
+import type { Post } from "@lib/types";
+import { formatDate } from "@lib/content";
+
+interface Props {
+  post: Post;
+}
+const { post } = Astro.props;
+---
+
+<a class="note-card" href={`/notes/${post.slug}`}>
+  <div class="note-card__meta">
+    <time class="label label-red" datetime={post.date}>{formatDate(post.date)}</time>
+    <span class="label">{post.category}</span>
+  </div>
+  <h3 class="note-card__title">{post.title}</h3>
+  <p class="note-card__excerpt">{post.excerpt}</p>
+  <span class="note-card__more label-red label">Read note →</span>
+</a>
+
+<style>
+  .note-card {
+    display: block;
+    padding: 1.6rem 0;
+    border-top: 1px solid var(--color-rule);
+    transition: border-color 200ms var(--ease-out);
+  }
+  .note-card__meta {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+  }
+  .note-card__title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    line-height: 1.08;
+    margin-top: 0.5rem;
+    color: var(--color-ink-red);
+    transition: color 160ms var(--ease-out);
+  }
+  .note-card__excerpt {
+    margin-top: 0.5rem;
+    color: var(--color-dark);
+    max-width: 60ch;
+  }
+  .note-card__more {
+    display: inline-block;
+    margin-top: 0.9rem;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition:
+      opacity 200ms var(--ease-out),
+      transform 200ms var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .note-card:hover {
+      border-color: var(--color-ink-red);
+    }
+    .note-card:hover .note-card__title {
+      color: var(--color-wine);
+    }
+    .note-card:hover .note-card__more {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  /* On touch, no hover — keep the affordance visible. */
+  @media (hover: none) {
+    .note-card__more {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

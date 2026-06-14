@@ -1,2 +1,28 @@
 .DS_Store
 implementation_plan.md
+.claude/
+.agents/
+skills-lock.json
+
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build output
+dist/
+.astro/
+.output/
+
+# cloudflare / wrangler
+.wrangler/
+.dev.vars
+
+# env
+.env
+.env.*
+!.env.example
+
+# logs / os
+*.log
+.DS_Store
+.env.example

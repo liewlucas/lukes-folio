@@ -1,0 +1,41 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import PageHeader from "@components/ui/PageHeader.astro";
+import ProjectCard from "@components/work/ProjectCard.astro";
+import { getProjects } from "@lib/content";
+
+const projects = await getProjects();
+---
+
+<BaseLayout
+  title="Work"
+  description="Selected brand, product, and editorial design projects by Lucas Liew."
+>
+  <PageHeader
+    eyebrow="Portfolio · Archive"
+    title="Selected <em>work</em>"
+    intro="Brand systems, product design, and editorial projects — a few of the ones worth keeping."
+  />
+
+  <section class="container-editorial work-archive">
+    <div class="work-grid">
+      {projects.map((p, i) => <ProjectCard project={p} eager={i < 2} />)}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .work-archive {
+    padding-bottom: 2rem;
+  }
+  .work-grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .work-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

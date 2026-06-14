@@ -1,0 +1,153 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import ProjectCard from "@components/work/ProjectCard.astro";
+import NoteCard from "@components/notes/NoteCard.astro";
+import Label from "@components/ui/Label.astro";
+import {
+  getSettings,
+  getFeaturedProjects,
+  getLatestPosts,
+} from "@lib/content";
+
+const settings = await getSettings();
+const projects = await getFeaturedProjects(3);
+const posts = await getLatestPosts(3);
+---
+
+<BaseLayout
+  title="Lucas Liew"
+  description={settings.intro_line}
+>
+  <!-- Hero -->
+  <section class="hero container-editorial">
+    <span class="label label-red rise rise-1">{settings.site_title}</span>
+    <h1 class="hero__display printed rise rise-2">
+      <em>an archive</em> of work<br />that feels<br /><em>like summer</em>
+    </h1>
+    <p class="hero__intro rise rise-3">{settings.intro_line}</p>
+    <div class="hero__actions rise rise-4">
+      <a class="btn btn-solid" href="/work">See the work</a>
+      <a class="btn" href="/notes">Read the notes</a>
+    </div>
+  </section>
+
+  <!-- Selected work -->
+  <section class="section container-editorial">
+    <div class="section__head">
+      <Label red>Selected work</Label>
+      <a class="link-underline section__link" href="/work">All projects →</a>
+    </div>
+    <div class="work-grid">
+      {projects.map((p, i) => <ProjectCard project={p} eager={i === 0} />)}
+    </div>
+  </section>
+
+  <!-- Latest notes -->
+  <section class="section container-editorial">
+    <div class="section__head">
+      <Label red>Latest notes</Label>
+      <a class="link-underline section__link" href="/notes">All notes →</a>
+    </div>
+    <div class="notes-list">
+      {posts.map((post) => <NoteCard post={post} />)}
+    </div>
+  </section>
+
+  <!-- About snippet -->
+  <section class="section container-editorial">
+    <div class="about-snippet">
+      <Label red>Currently</Label>
+      <p class="about-snippet__text">
+        Designing brand systems and small, careful software — and keeping the
+        process out in the open. If it can be set in type and printed on cloth,
+        I want to make it.
+      </p>
+      <a class="link-underline about-snippet__link" href="/about">More about me →</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-top: clamp(3.5rem, 11vw, 9rem);
+    padding-bottom: clamp(3rem, 8vw, 6rem);
+  }
+  .hero__display {
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    line-height: 0.96;
+    color: var(--color-ink-red);
+    letter-spacing: -0.02em;
+    margin-top: 1.2rem;
+  }
+  .hero__display em {
+    font-style: italic;
+  }
+  .hero__intro {
+    margin-top: 1.8rem;
+    max-width: 46ch;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    line-height: 1.5;
+    color: var(--color-dark);
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-top: 2.2rem;
+  }
+
+  .section {
+    padding-top: clamp(2.5rem, 6vw, 4.5rem);
+  }
+  .section__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .section__link {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .work-grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    margin-top: 2.5rem;
+    grid-template-columns: 1fr;
+  }
+  .notes-list {
+    margin-top: 1rem;
+  }
+
+  .about-snippet {
+    max-width: 60ch;
+  }
+  .about-snippet__text {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+    line-height: 1.2;
+    color: var(--color-dark);
+    margin-top: 1rem;
+  }
+  .about-snippet__link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  @media (min-width: 720px) {
+    .work-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

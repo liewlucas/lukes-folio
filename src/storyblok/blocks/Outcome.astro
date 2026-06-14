@@ -1,0 +1,25 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro";
+const { blok } = Astro.props;
+const html = blok.body ? renderRichText(blok.body) : "";
+---
+
+<section class="container-editorial sb-outcome surface-paper" {...storyblokEditable(blok)}>
+  <span class="label label-red">{blok.label ?? "Outcome"}</span>
+  {blok.heading && <h2 class="title sb-outcome__heading">{blok.heading}</h2>}
+  <div class="prose-editorial" set:html={html} />
+</section>
+
+<style>
+  .sb-outcome {
+    margin-inline: auto;
+    max-width: 72rem;
+    padding: clamp(2rem, 5vw, 3.5rem) clamp(1.5rem, 5vw, 4rem);
+    border: 1px solid var(--color-rule);
+    border-radius: 3px;
+    margin-block: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  .sb-outcome__heading {
+    margin-block: 0.75rem 1rem;
+  }
+</style>

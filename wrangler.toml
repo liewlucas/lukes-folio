@@ -1,0 +1,23 @@
+# Cloudflare Workers deployment for liewlucass.com
+# Astro builds static assets (output: "static") + a Worker entry via the
+# @astrojs/cloudflare adapter. Wrangler serves the assets and the Worker.
+name = "lukes-folio"
+compatibility_date = "2025-09-01"
+compatibility_flags = ["nodejs_compat"]
+main = "./dist/_worker.js/index.js"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+
+# Set these in the Cloudflare dashboard (Workers > Settings > Variables) or via
+# `wrangler secret put`. Do NOT commit real tokens.
+# [vars]
+# PUBLIC_SITE_URL = "https://liewlucass.com"
+# STORYBLOK_VERSION = "published"
+# STORYBLOK_REGION = "eu"
+
+# Custom domain — uncomment and configure after adding the zone in Cloudflare.
+# [[routes]]
+# pattern = "liewlucass.com"
+# custom_domain = true

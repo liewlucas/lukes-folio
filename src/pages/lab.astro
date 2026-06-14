@@ -1,0 +1,86 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import PageHeader from "@components/ui/PageHeader.astro";
+
+// Static experiments for v1. Swap to a Storyblok-driven list later.
+const experiments = [
+  {
+    title: "Embroidered type generator",
+    note: "A toy that renders any word as faux-stitched display lettering on canvas.",
+    status: "Prototype",
+  },
+  {
+    title: "Ink soak shader",
+    note: "WebGL study: simulating ink bleeding into woven fabric for the printed-text effect.",
+    status: "Half-finished",
+  },
+  {
+    title: "Risograph palette picker",
+    note: "Pulls two-colour riso combinations that still pass contrast for body text.",
+    status: "Idea",
+  },
+];
+---
+
+<BaseLayout
+  title="Lab"
+  description="Prototypes, small tools, and unfinished experiments by Lucas Liew."
+>
+  <PageHeader
+    eyebrow="Lab · Experiments"
+    title="The <em>lab</em>"
+    intro="Prototypes, small tools, and ideas that aren't finished — and might never be. That's allowed here."
+  />
+
+  <section class="container-editorial lab">
+    <ul class="lab__list">
+      {
+        experiments.map((x) => (
+          <li class="lab__item">
+            <div class="lab__head">
+              <h2 class="lab__title">{x.title}</h2>
+              <span class="label">{x.status}</span>
+            </div>
+            <p class="lab__note">{x.note}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .lab {
+    padding-bottom: 2rem;
+  }
+  .lab__list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0;
+  }
+  .lab__item {
+    padding: clamp(1.5rem, 4vw, 2.25rem) 0;
+    border-top: 1px solid var(--color-rule);
+  }
+  .lab__item:last-child {
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .lab__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .lab__title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    color: var(--color-ink-red);
+  }
+  .lab__note {
+    margin-top: 0.6rem;
+    max-width: 56ch;
+    color: var(--color-dark);
+  }
+</style>

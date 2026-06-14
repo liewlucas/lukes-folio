@@ -1,0 +1,44 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import ProjectCard from "@components/work/ProjectCard.astro";
+import { getFeaturedProjects } from "@lib/content";
+
+const { blok } = Astro.props;
+const limit = Number(blok.limit) || 3;
+const projects = await getFeaturedProjects(limit);
+---
+
+<section class="container-editorial sb-featured" {...storyblokEditable(blok)}>
+  <div class="sb-featured__head">
+    <span class="label label-red">{blok.heading ?? "Selected work"}</span>
+    <a class="link-underline" href="/work">All projects →</a>
+  </div>
+  <div class="sb-featured__grid">
+    {projects.map((p) => <ProjectCard project={p} />)}
+  </div>
+</section>
+
+<style>
+  .sb-featured {
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+  }
+  .sb-featured__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .sb-featured__grid {
+    margin-top: 2.5rem;
+    display: grid;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .sb-featured__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

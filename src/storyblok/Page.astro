@@ -1,0 +1,11 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { blok } = Astro.props;
+const body = Array.isArray(blok?.body) ? blok.body : [];
+---
+
+<div {...storyblokEditable(blok)}>
+  {body.map((b: any) => <StoryblokComponent blok={b} />)}
+</div>

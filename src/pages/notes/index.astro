@@ -1,0 +1,35 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import PageHeader from "@components/ui/PageHeader.astro";
+import NoteCard from "@components/notes/NoteCard.astro";
+import { getPosts } from "@lib/content";
+
+const posts = await getPosts();
+---
+
+<BaseLayout
+  title="Notes"
+  description="Dev logs, design notes, and writing from Lucas Liew — a living notebook."
+>
+  <PageHeader
+    eyebrow="Notes · Dev log"
+    title="A working <em>notebook</em>"
+    intro="Design thinking, build notes, and the occasional half-finished idea. Less marketing blog, more personal index."
+  />
+
+  <section class="container-editorial notes-archive">
+    <div class="notes-list">
+      {posts.map((post) => <NoteCard post={post} />)}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notes-archive {
+    padding-bottom: 2rem;
+  }
+  /* Close the bottom border of the last card with the section. */
+  .notes-list {
+    border-bottom: 1px solid var(--color-rule);
+  }
+</style>

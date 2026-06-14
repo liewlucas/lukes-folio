@@ -1,0 +1,17 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+const { blok } = Astro.props;
+const url = blok.url?.url || blok.url || "#";
+---
+
+<div class="container-editorial sb-extlink" {...storyblokEditable(blok)}>
+  <a class="btn btn-solid" href={url} target="_blank" rel="noopener noreferrer">
+    {blok.label ?? "Visit"}
+  </a>
+</div>
+
+<style>
+  .sb-extlink {
+    padding-block: clamp(1rem, 3vw, 2rem);
+  }
+</style>

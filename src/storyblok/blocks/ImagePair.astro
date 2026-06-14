@@ -1,0 +1,38 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import { storyblokImage } from "@lib/image";
+const { blok } = Astro.props;
+const images = [blok.left, blok.right].filter((i: any) => i?.filename);
+---
+
+<div class="container-editorial sb-pair" {...storyblokEditable(blok)}>
+  {
+    images.map((img: any) => (
+      <img
+        src={storyblokImage(img.filename, { width: 900 })}
+        alt={img.alt ?? ""}
+        loading="lazy"
+        decoding="async"
+      />
+    ))
+  }
+</div>
+
+<style>
+  .sb-pair {
+    padding-block: clamp(1.5rem, 4vw, 2.5rem);
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+  }
+  .sb-pair img {
+    width: 100%;
+    border: 1px solid var(--color-rule);
+    border-radius: 2px;
+  }
+  @media (min-width: 720px) {
+    .sb-pair {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

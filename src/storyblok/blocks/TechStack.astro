@@ -1,0 +1,30 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+const { blok } = Astro.props;
+const items: string[] = Array.isArray(blok.items)
+  ? blok.items
+  : typeof blok.items === "string"
+    ? blok.items.split(",").map((s: string) => s.trim()).filter(Boolean)
+    : [];
+---
+
+<section class="container-editorial sb-stack" {...storyblokEditable(blok)}>
+  <span class="label label-red">{blok.label ?? "Built with"}</span>
+  <ul class="sb-stack__list">
+    {items.map((item) => <li class="label">{item}</li>)}
+  </ul>
+</section>
+
+<style>
+  .sb-stack {
+    padding-block: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  .sb-stack__list {
+    margin-top: 0.9rem;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+  }
+</style>

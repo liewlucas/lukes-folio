@@ -1,0 +1,113 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Cover from "@components/ui/Cover.astro";
+import { formatDate } from "@lib/content";
+import type { Post, Project } from "@lib/types";
+
+interface Props {
+  post: Post;
+  related?: Project;
+}
+const { post, related } = Astro.props;
+---
+
+<BaseLayout
+  title={post.title}
+  description={post.excerpt}
+  image={post.cover_image?.src}
+  type="article"
+  publishedTime={post.date}
+>
+  <article class="post">
+    <header class="post__head container-editorial">
+      <div class="post__meta rise rise-1">
+        <time class="label label-red" datetime={post.date}>{formatDate(post.date)}</time>
+        <span class="label">{post.category}</span>
+      </div>
+      <h1 class="post__title title printed rise rise-2">{post.title}</h1>
+      <p class="post__excerpt rise rise-3">{post.excerpt}</p>
+    </header>
+
+    {
+      post.cover_image && (
+        <div class="post__cover container-editorial">
+          <Cover image={post.cover_image} title={post.title} ratio="16 / 9" width={1600} eager />
+        </div>
+      )
+    }
+
+    <div class="post__body container-editorial">
+      <div class="prose-editorial" set:html={post.body_html} />
+    </div>
+
+    <footer class="post__footer container-editorial">
+      {
+        related && (
+          <p class="post__related">
+            <span class="label label-red">Related project</span>
+            <a class="link-underline post__related-link" href={`/work/${related.slug}`}>
+              {related.title}
+            </a>
+          </p>
+        )
+      }
+      <a class="link-underline post__back" href="/notes">← Back to all notes</a>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .post__head {
+    padding-top: clamp(3rem, 8vw, 6rem);
+    max-width: 56rem;
+  }
+  .post__meta {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+  }
+  .post__title {
+    margin-top: 0.7rem;
+  }
+  .post__excerpt {
+    margin-top: 1.2rem;
+    max-width: var(--measure);
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    line-height: 1.5;
+    color: var(--color-dark);
+  }
+  .post__cover {
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+  }
+  .post__body {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    font-size: 1.12rem;
+  }
+  .post__footer {
+    margin-top: clamp(3rem, 7vw, 5rem);
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--color-rule);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .post__related {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .post__related-link {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--color-ink-red);
+  }
+  .post__back {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+</style>
